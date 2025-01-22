@@ -1,7 +1,72 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+------------------------------
+Hello! I'm
+  .---.    .-./`)   .---.    .-./`)
+  | ,_|    \ .-.')  | ,_|    \ .-.')
+,-./  )    / `-' \,-./  )    / `-' \
+\  '_ '`)   `-'`"`\  '_ '`)   `-'`"`
+ > (_)  )   .---.  > (_)  )   .---.
+(  .  .-'   |   | (  .  .-'   |   |
+ `-'`-'|___ |   |  `-'`-'|___ |   |
+  |        \|   |   |        \|   |
+  `--------`'---'   `--------`'---'
+What can I do for you?
+------------------------------
+------------------------------
+Nothing in list
+------------------------------
+------------------------------
+Nice! I've added it to your list:
+[T] [ ] Read Book
+Now you have 1 task(s) in your list.
+------------------------------
+------------------------------
+Nice! I've added it to your list:
+[T] [ ] Wash Dishes
+Now you have 2 task(s) in your list.
+------------------------------
+------------------------------
+Remember to complete your task by the deadline! I've added it to your list:
+[D] [ ] Finish Website Project (by: 28 Mar)
+Now you have 3 task(s) in your list.
+------------------------------
+------------------------------
+Enjoy your event! I've added it to your list:
+[E] [ ] Concert (from: 26 Jan to: 27 Jan)
+Now you have 4 task(s) in your list.
+------------------------------
+------------------------------
+Ok! I've marked it as done:
+[T] [X] Wash Dishes
+------------------------------
+------------------------------
+Nice! I've added it to your list:
+[T] [ ] Watch Drama
+Now you have 5 task(s) in your list.
+------------------------------
+------------------------------
+Ok! I've marked it as done:
+[D] [X] Finish Website Project (by: 28 Mar)
+------------------------------
+------------------------------
+Done and dusted, I've removed this from your list:
+[T] [X] Wash Dishes
+Now you have 4 task(s) in your list.
+------------------------------
+------------------------------
+Ok! I've marked it as done:
+[E] [X] Concert (from: 26 Jan to: 27 Jan)
+------------------------------
+------------------------------
+Ok! I've marked it as not done yet:
+[D] [ ] Finish Website Project (by: 28 Mar)
+------------------------------
+------------------------------
+Here are your list of tasks:
+1. [T] [ ] Read Book
+2. [D] [ ] Finish Website Project (by: 28 Mar)
+3. [E] [X] Concert (from: 26 Jan to: 27 Jan)
+4. [T] [ ] Watch Drama
+------------------------------
+------------------------------
+Bye, talk to you again <3
+------------------------------
