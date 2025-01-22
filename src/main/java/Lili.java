@@ -112,7 +112,24 @@ public class Lili {
                     } else {
                         throw new InvalidEventFormatException();
                     }
-                } else {
+                } else if (input.toLowerCase().startsWith("delete ")) {
+                    String taskNumber = input.substring(7).trim();
+                    if (taskNumber.isEmpty()) {
+                        throw new InvalidTaskNumberException();
+                    } else {
+                        int taskNumberInt = Integer.parseInt(taskNumber);
+                        if (taskNumberInt > 0 && taskNumberInt <= list.size()) {
+                            Task task = list.get(taskNumberInt - 1);
+                            list.remove(taskNumberInt - 1);
+                            System.out.println("Done and dusted, I've removed this from your list:");
+                            System.out.println(task.toString());
+                            System.out.println("Now you have " + list.size() + " task(s) in your list.");
+                        } else {
+                            throw new InvalidTaskNumberException();
+                        }
+                    }
+                }
+                else {
                     throw new InvalidCommandException();
                 }
             } catch (LiliException e) {
