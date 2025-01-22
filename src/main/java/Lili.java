@@ -51,7 +51,7 @@ public class Lili {
                         if (taskNumberInt > 0 && taskNumberInt <= list.size()) {
                             Task task = list.get(taskNumberInt - 1);
                             task.markAsDone();
-                            System.out.println("Ok! I've marked it as not done yet:");
+                            System.out.println("Ok! I've marked it as done:");
                             System.out.println(task.toString());
                         } else {
                             throw new InvalidTaskNumberException();
