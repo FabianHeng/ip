@@ -61,12 +61,20 @@ public class Lili {
                     System.out.println("Ok! I've marked it as not done yet:");
                     System.out.println(task.toString());
                 }
+            } else if (input.toLowerCase().startsWith("todo ")) {
+                String taskDescription = input.substring(5).trim();
+                Todo todo = new Todo(taskDescription);
+                list.add(todo);
+                System.out.println("Nice! I've added it to your list:");
+                System.out.println(todo.toString());
+                System.out.println("Now you have " + list.size() + " task(s) in your list.");
             }
             else {
                 Task task = new Task(input);
                 list.add(task);
                 System.out.println("Nice! I've added it to your list:");
                 System.out.println(task.toString());
+                System.out.println("Now you have " + list.size() + " task(s) in your list.");
             }
             System.out.println("------------------------------");
         }
