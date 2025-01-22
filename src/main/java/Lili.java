@@ -1,10 +1,20 @@
 public class Lili {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = "  .---.    .-./`)   .---.    .-./`) \n"
+                + "  | ,_|    \\ .-.')  | ,_|    \\ .-.') \n"
+                + ",-./  )    / `-' \\,-./  )    / `-' \\ \n"
+                + "\\  '_ '`)   `-'`\"`\\  '_ '`)   `-'`\"` \n"
+                + " > (_)  )   .---.  > (_)  )   .---.  \n"
+                + "(  .  .-'   |   | (  .  .-'   |   |  \n"
+                + " `-'`-'|___ |   |  `-'`-'|___ |   |  \n"
+                + "  |        \\|   |   |        \\|   |  \n"
+                + "  `--------`'---'   `--------`'---'";
+        System.out.println("------------------------------");
+        System.out.println("Hello! I'm");
+        System.out.println(logo);
+        System.out.println("What can I do for you?");
+        System.out.println("------------------------------");
+        System.out.println("Bye. Hope to see you again.");
+        System.out.println("------------------------------");
     }
 }
