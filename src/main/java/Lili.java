@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Lili {
     public static void main(String[] args) {
         String logo = "  .---.    .-./`)   .---.    .-./`) \n"
@@ -14,7 +16,24 @@ public class Lili {
         System.out.println(logo);
         System.out.println("What can I do for you?");
         System.out.println("------------------------------");
-        System.out.println("Bye. Hope to see you again.");
-        System.out.println("------------------------------");
+
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        while (true) {
+            input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("bye")) {
+                System.out.println("------------------------------");
+                System.out.println("Byee, talk to you again <3");
+                System.out.println("------------------------------");
+                break;
+            }
+
+            System.out.println("------------------------------");
+            System.out.println(input);
+            System.out.println("------------------------------");
+        }
+
+        scanner.close();
     }
 }
