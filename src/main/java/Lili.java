@@ -10,6 +10,20 @@ import java.util.Scanner;
  */
 
 public class Lili {
+    /**
+     * Enum for supported commands.
+     */
+    private enum Command {
+        LIST,
+        LS,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE
+    }
+
     private static final String LOGO = "  .---.    .-./`)   .---.    .-./`)\n"
             + "  | ,_|    \\ .-.')  | ,_|    \\ .-.')\n"
             + ",-./  )    / `-' \\,-./  )    / `-' \\\n"
@@ -91,21 +105,41 @@ public class Lili {
      * @throws LiliException If the input is invalid or causes an error.
      */
     private static void handleCommand(String input) throws LiliException {
-        if (input.equalsIgnoreCase("list") || input.equalsIgnoreCase("ls")) {
+        String[] parts = input.split(" ", 2);
+        Command command;
+
+        try {
+            command = Command.valueOf(parts[0].toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new InvalidCommandException();
+        }
+
+        String argument = parts.length > 1 ? parts[1].trim() : "";
+
+        switch (command) {
+        case LIST:
+        case LS:
             displayTaskList();
-        } else if (input.toLowerCase().startsWith("mark ")) {
-            markTask(input.substring(5).trim());
-        } else if (input.toLowerCase().startsWith("unmark ")) {
-            unmarkTask(input.substring(7).trim());
-        } else if (input.toLowerCase().startsWith("todo ")) {
-            addTodoTask(input.substring(5).trim());
-        } else if (input.toLowerCase().startsWith("deadline ")) {
-            addDeadlineTask(input.substring(9).trim());
-        } else if (input.toLowerCase().startsWith("event ")) {
-            addEventTask(input.substring(6).trim());
-        } else if (input.toLowerCase().startsWith("delete ")) {
-            deleteTask(input.substring(7).trim());
-        } else {
+            break;
+        case MARK:
+            markTask(argument);
+            break;
+        case UNMARK:
+            unmarkTask(argument);
+            break;
+        case TODO:
+            addTodoTask(argument);
+            break;
+        case DEADLINE:
+            addDeadlineTask(argument);
+            break;
+        case EVENT:
+            addEventTask(argument);
+            break;
+        case DELETE:
+            deleteTask(argument);
+            break;
+        default:
             throw new InvalidCommandException();
         }
     }
