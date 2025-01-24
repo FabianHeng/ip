@@ -1,137 +1,61 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A simple task manager chatbot called Lili.
+ * Provides functionalities for managing tasks and more features will be added.
+ * Part of CS2103 Individual Project requirements.
+ *
+ * @author FabianHeng
+ */
+
 public class Lili {
+    private static final String LOGO = "  .---.    .-./`)   .---.    .-./`)\n"
+            + "  | ,_|    \\ .-.')  | ,_|    \\ .-.')\n"
+            + ",-./  )    / `-' \\,-./  )    / `-' \\\n"
+            + "\\  '_ '`)   `-'`\"`\\  '_ '`)   `-'`\"`\n"
+            + " > (_)  )   .---.  > (_)  )   .---.\n"
+            + "(  .  .-'   |   | (  .  .-'   |   |\n"
+            + " `-'`-'|___ |   |  `-'`-'|___ |   |\n"
+            + "  |        \\|   |   |        \\|   |\n"
+            + "  `--------`'---'   `--------`'---'";
+
+    private static final ArrayList<Task> taskList = new ArrayList<>();
+
     public static void main(String[] args) throws LiliException {
-        String logo = "  .---.    .-./`)   .---.    .-./`)\n"
-                + "  | ,_|    \\ .-.')  | ,_|    \\ .-.')\n"
-                + ",-./  )    / `-' \\,-./  )    / `-' \\\n"
-                + "\\  '_ '`)   `-'`\"`\\  '_ '`)   `-'`\"`\n"
-                + " > (_)  )   .---.  > (_)  )   .---.\n"
-                + "(  .  .-'   |   | (  .  .-'   |   |\n"
-                + " `-'`-'|___ |   |  `-'`-'|___ |   |\n"
-                + "  |        \\|   |   |        \\|   |\n"
-                + "  `--------`'---'   `--------`'---'";
+        displayWelcomeMessage();
+        startChat();
+    }
+
+    /**
+     * Displays the welcome message and logo.
+     */
+    private static void displayWelcomeMessage() {
         System.out.println("------------------------------");
         System.out.println("Hello! I'm");
-        System.out.println(logo);
+        System.out.println(LOGO);
         System.out.println("What can I do for you?");
         System.out.println("------------------------------");
+    }
 
+    /**
+     * Starts the chatbot interaction with the user.
+     */
+    private static void startChat() {
         Scanner scanner = new Scanner(System.in);
         String input;
-        ArrayList<Task> list = new ArrayList<>();
+
         while (true) {
             input = scanner.nextLine();
 
-            if (input.equalsIgnoreCase("bye") || input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("quit")) {
-                System.out.println("------------------------------");
-                System.out.println("Bye, talk to you again <3");
-                System.out.println("------------------------------");
+            if (isExitCommand(input)) {
+                displayExitMessage();
                 break;
             }
 
             System.out.println("------------------------------");
             try {
-                if (input.equalsIgnoreCase("list") || input.equalsIgnoreCase("ls")) {
-                    if (list.isEmpty()) {
-                        System.out.println("Nothing in list");
-                    } else {
-                        System.out.println("Here are your list of tasks:");
-                        for (int i = 0; i < list.size(); i++) {
-                            System.out.println((i + 1) + ". " + list.get(i).toString());
-                        }
-                    }
-                } else if (input.toLowerCase().startsWith("mark ")) {
-                    String taskNumber = input.substring(5).trim();
-                    if (taskNumber.isEmpty()) {
-                        throw new InvalidTaskNumberException();
-                    } else {
-                        int taskNumberInt = Integer.parseInt(taskNumber);
-                        if (taskNumberInt > 0 && taskNumberInt <= list.size()) {
-                            Task task = list.get(taskNumberInt - 1);
-                            task.markAsDone();
-                            System.out.println("Ok! I've marked it as done:");
-                            System.out.println(task.toString());
-                        } else {
-                            throw new InvalidTaskNumberException();
-                        }
-                    }
-                } else if (input.toLowerCase().startsWith("unmark ")) {
-                    String taskNumber = input.substring(7).trim();
-                    if (taskNumber.isEmpty()) {
-                        throw new InvalidTaskNumberException();
-                    } else {
-                        int taskNumberInt = Integer.parseInt(taskNumber);
-                        if (taskNumberInt > 0 && taskNumberInt <= list.size()) {
-                            Task task = list.get(taskNumberInt - 1);
-                            task.markAsNotDone();
-                            System.out.println("Ok! I've marked it as not done yet:");
-                            System.out.println(task.toString());
-                        } else {
-                            throw new InvalidTaskNumberException();
-                        }
-                    }
-                } else if (input.toLowerCase().startsWith("todo ")) {
-                    String taskDescription = input.substring(5).trim();
-                    if (taskDescription.isEmpty()) {
-                        throw new InvalidTodoDescriptionException();
-                    } else {
-                        Todo todo = new Todo(taskDescription);
-                        list.add(todo);
-                        System.out.println("Nice! I've added it to your list:");
-                        System.out.println(todo.toString());
-                        System.out.println("Now you have " + list.size() + " task(s) in your list.");
-                    }
-                } else if (input.toLowerCase().startsWith("deadline ")) {
-                    String taskDescription = input.substring(9).trim();
-                    String[] parts = taskDescription.split(" /by ");
-                    if (parts.length == 2) {
-                        String name = parts[0].trim();
-                        String by = parts[1].trim();
-                        Deadline deadline = new Deadline(name, by);
-                        list.add(deadline);
-                        System.out.println("Remember to complete your task by the deadline! I've added it to your list:");
-                        System.out.println(deadline.toString());
-                        System.out.println("Now you have " + list.size() + " task(s) in your list.");
-                    } else {
-                        throw new InvalidDeadlineFormatException();
-                    }
-                } else if (input.toLowerCase().startsWith("event ")) {
-                    String taskDescription = input.substring(6).trim();
-                    String[] parts = taskDescription.split(" /from | /to ");
-                    if (parts.length == 3) {
-                        String name = parts[0].trim();
-                        String from = parts[1].trim();
-                        String to = parts[2].trim();
-                        Event event = new Event(name, from, to);
-                        list.add(event);
-                        System.out.println("Enjoy your event! I've added it to your list:");
-                        System.out.println(event.toString());
-                        System.out.println("Now you have " + list.size() + " task(s) in your list.");
-                    } else {
-                        throw new InvalidEventFormatException();
-                    }
-                } else if (input.toLowerCase().startsWith("delete ")) {
-                    String taskNumber = input.substring(7).trim();
-                    if (taskNumber.isEmpty()) {
-                        throw new InvalidTaskNumberException();
-                    } else {
-                        int taskNumberInt = Integer.parseInt(taskNumber);
-                        if (taskNumberInt > 0 && taskNumberInt <= list.size()) {
-                            Task task = list.get(taskNumberInt - 1);
-                            list.remove(taskNumberInt - 1);
-                            System.out.println("Done and dusted, I've removed this from your list:");
-                            System.out.println(task.toString());
-                            System.out.println("Now you have " + list.size() + " task(s) in your list.");
-                        } else {
-                            throw new InvalidTaskNumberException();
-                        }
-                    }
-                }
-                else {
-                    throw new InvalidCommandException();
-                }
+                handleCommand(input);
             } catch (LiliException e) {
                 System.out.println(e.getMessage());
             }
@@ -139,5 +63,183 @@ public class Lili {
         }
 
         scanner.close();
+    }
+
+    /**
+     * Checks if the user input is an exit command.
+     *
+     * @param input User input.
+     * @return True if the input is an exit command, false otherwise.
+     */
+    private static boolean isExitCommand(String input) {
+        return input.equalsIgnoreCase("bye") || input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("quit");
+    }
+
+    /**
+     * Displays the exit message.
+     */
+    private static void displayExitMessage() {
+        System.out.println("------------------------------");
+        System.out.println("Bye, talk to you again <3");
+        System.out.println("------------------------------");
+    }
+
+    /**
+     * Handles user commands.
+     *
+     * @param input User input.
+     * @throws LiliException If the input is invalid or causes an error.
+     */
+    private static void handleCommand(String input) throws LiliException {
+        if (input.equalsIgnoreCase("list") || input.equalsIgnoreCase("ls")) {
+            displayTaskList();
+        } else if (input.toLowerCase().startsWith("mark ")) {
+            markTask(input.substring(5).trim());
+        } else if (input.toLowerCase().startsWith("unmark ")) {
+            unmarkTask(input.substring(7).trim());
+        } else if (input.toLowerCase().startsWith("todo ")) {
+            addTodoTask(input.substring(5).trim());
+        } else if (input.toLowerCase().startsWith("deadline ")) {
+            addDeadlineTask(input.substring(9).trim());
+        } else if (input.toLowerCase().startsWith("event ")) {
+            addEventTask(input.substring(6).trim());
+        } else if (input.toLowerCase().startsWith("delete ")) {
+            deleteTask(input.substring(7).trim());
+        } else {
+            throw new InvalidCommandException();
+        }
+    }
+
+    /**
+     * Displays the list of tasks.
+     */
+    private static void displayTaskList() {
+        if (taskList.isEmpty()) {
+            System.out.println("Nothing in list");
+        } else {
+            System.out.println("Here are your list of tasks:");
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.println((i + 1) + ". " + taskList.get(i).toString());
+            }
+        }
+    }
+
+    /**
+     * Marks a task as done.
+     *
+     * @param taskNumber Task number to mark.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     */
+    private static void markTask(String taskNumber) throws InvalidTaskNumberException {
+        int taskIndex = parseTaskNumber(taskNumber);
+        Task task = taskList.get(taskIndex);
+        task.markAsDone();
+        System.out.println("Ok! I've marked it as done:");
+        System.out.println(task.toString());
+    }
+
+    /**
+     * Unmarks a task as not done.
+     *
+     * @param taskNumber Task number to unmark.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     */
+    private static void unmarkTask(String taskNumber) throws InvalidTaskNumberException {
+        int taskIndex = parseTaskNumber(taskNumber);
+        Task task = taskList.get(taskIndex);
+        task.markAsNotDone();
+        System.out.println("Ok! I've marked it as not done yet:");
+        System.out.println(task.toString());
+    }
+
+    /**
+     * Adds a new Todo task.
+     *
+     * @param description Description of the task.
+     * @throws InvalidTodoDescriptionException If the description is empty.
+     */
+    private static void addTodoTask(String description) throws InvalidTodoDescriptionException {
+        if (description.isEmpty()) {
+            throw new InvalidTodoDescriptionException();
+        }
+        Todo todo = new Todo(description);
+        taskList.add(todo);
+        displayTaskAdded(todo);
+    }
+
+    /**
+     * Adds a new Deadline task.
+     *
+     * @param description Task description and deadline, separated by " /by ".
+     * @throws InvalidDeadlineFormatException If the format is invalid.
+     */
+    private static void addDeadlineTask(String description) throws InvalidDeadlineFormatException {
+        String[] parts = description.split(" /by ");
+        if (parts.length != 2) {
+            throw new InvalidDeadlineFormatException();
+        }
+        Deadline deadline = new Deadline(parts[0].trim(), parts[1].trim());
+        taskList.add(deadline);
+        displayTaskAdded(deadline);
+    }
+
+    /**
+     * Adds a new Event task.
+     *
+     * @param description Task description with start and end time, separated by " /from " and " /to ".
+     * @throws InvalidEventFormatException If the format is invalid.
+     */
+    private static void addEventTask(String description) throws InvalidEventFormatException {
+        String[] parts = description.split(" /from | /to ");
+        if (parts.length != 3) {
+            throw new InvalidEventFormatException();
+        }
+        Event event = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+        taskList.add(event);
+        displayTaskAdded(event);
+    }
+
+    /**
+     * Deletes a task.
+     *
+     * @param taskNumber Task number to delete.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     */
+    private static void deleteTask(String taskNumber) throws InvalidTaskNumberException {
+        int taskIndex = parseTaskNumber(taskNumber);
+        Task task = taskList.remove(taskIndex);
+        System.out.println("Done and dusted, I've removed this from your list:");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + taskList.size() + " task(s) in your list.");
+    }
+
+    /**
+     * Displays a message for a newly added task.
+     *
+     * @param task The task that was added.
+     */
+    private static void displayTaskAdded(Task task) {
+        System.out.println("Nice! I've added it to your list:");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + taskList.size() + " task(s) in your list.");
+    }
+
+    /**
+     * Parses a task number from user input.
+     *
+     * @param taskNumber The task number as a string.
+     * @return The zero-based index of the task.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     */
+    private static int parseTaskNumber(String taskNumber) throws InvalidTaskNumberException {
+        try {
+            int taskIndex = Integer.parseInt(taskNumber) - 1;
+            if (taskIndex < 0 || taskIndex >= taskList.size()) {
+                throw new InvalidTaskNumberException();
+            }
+            return taskIndex;
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException();
+        }
     }
 }
