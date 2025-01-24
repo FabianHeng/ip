@@ -28,18 +28,20 @@ public class Lili {
         DELETE
     }
 
-    private static final String LOGO = "  .---.    .-./`)   .---.    .-./`)\n"
-            + "  | ,_|    \\ .-.')  | ,_|    \\ .-.')\n"
-            + ",-./  )    / `-' \\,-./  )    / `-' \\\n"
-            + "\\  '_ '`)   `-'`\"`\\  '_ '`)   `-'`\"`\n"
-            + " > (_)  )   .---.  > (_)  )   .---.\n"
-            + "(  .  .-'   |   | (  .  .-'   |   |\n"
-            + " `-'`-'|___ |   |  `-'`-'|___ |   |\n"
-            + "  |        \\|   |   |        \\|   |\n"
-            + "  `--------`'---'   `--------`'---'";
+    private static final String LOGO = """
+              .---.    .-./`)   .---.    .-./`)
+              | ,_|    \\ .-.')  | ,_|    \\ .-.')
+            ,-./  )    / `-' \\,-./  )    / `-' \\
+            \\  '_ '`)   `-'`"`\\  '_ '`)   `-'`"`
+             > (_)  )   .---.  > (_)  )   .---.
+            (  .  .-'   |   | (  .  .-'   |   |
+             `-'`-'|___ |   |  `-'`-'|___ |   |
+              |        \\|   |   |        \\|   |
+              `--------`'---'   `--------`'---'""";
 
     private static final ArrayList<Task> taskList = new ArrayList<>();
 
+    private static final String FILE_DIR = "src/main/data";
     private static final String FILE_PATH = "src/main/data/lili.txt";
 
     public static void main(String[] args) throws LiliException {
@@ -106,6 +108,11 @@ public class Lili {
      * Loads the tasks from a text file.
      */
     private static void loadTasks() {
+        File directory = new File(FILE_DIR);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
         File file = new File(FILE_PATH);
         if (!file.exists()) {
             return;
