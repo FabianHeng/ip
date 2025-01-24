@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,20 +28,25 @@ public class Lili {
         DELETE
     }
 
-    private static final String LOGO = "  .---.    .-./`)   .---.    .-./`)\n"
-            + "  | ,_|    \\ .-.')  | ,_|    \\ .-.')\n"
-            + ",-./  )    / `-' \\,-./  )    / `-' \\\n"
-            + "\\  '_ '`)   `-'`\"`\\  '_ '`)   `-'`\"`\n"
-            + " > (_)  )   .---.  > (_)  )   .---.\n"
-            + "(  .  .-'   |   | (  .  .-'   |   |\n"
-            + " `-'`-'|___ |   |  `-'`-'|___ |   |\n"
-            + "  |        \\|   |   |        \\|   |\n"
-            + "  `--------`'---'   `--------`'---'";
+    private static final String LOGO = """
+              .---.    .-./`)   .---.    .-./`)
+              | ,_|    \\ .-.')  | ,_|    \\ .-.')
+            ,-./  )    / `-' \\,-./  )    / `-' \\
+            \\  '_ '`)   `-'`"`\\  '_ '`)   `-'`"`
+             > (_)  )   .---.  > (_)  )   .---.
+            (  .  .-'   |   | (  .  .-'   |   |
+             `-'`-'|___ |   |  `-'`-'|___ |   |
+              |        \\|   |   |        \\|   |
+              `--------`'---'   `--------`'---'""";
 
     private static final ArrayList<Task> taskList = new ArrayList<>();
 
+    private static final String FILE_DIR = "src/main/data";
+    private static final String FILE_PATH = "src/main/data/lili.txt";
+
     public static void main(String[] args) throws LiliException {
         displayWelcomeMessage();
+        loadTasks();
         startChat();
     }
 
@@ -70,6 +79,7 @@ public class Lili {
             System.out.println("------------------------------");
             try {
                 handleCommand(input);
+                saveTasks();
             } catch (LiliException e) {
                 System.out.println(e.getMessage());
             }
@@ -77,6 +87,68 @@ public class Lili {
         }
 
         scanner.close();
+    }
+
+    /**
+     * Saves the tasks to a text file.
+     */
+    private static void saveTasks() {
+        try (FileWriter fw = new FileWriter(FILE_PATH)) {
+            if (!taskList.isEmpty()) {
+                for (Task task : taskList) {
+                    fw.write(task.toFileFormat() + System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks to the file.");
+        }
+    }
+
+    /**
+     * Loads the tasks from a text file.
+     */
+    private static void loadTasks() {
+        File directory = new File(FILE_DIR);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            return;
+        }
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Task task = parseTask(line);
+                if (task != null) {
+                    taskList.add(task);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks from the file.");
+        }
+    }
+
+    /**
+     * Parses all tasks from the text file.
+     *
+     * @param line Text line from file
+     * @return The task, else null.
+     */
+    private static Task parseTask(String line) {
+        String[] parts = line.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String name = parts[2];
+
+        return switch (type) {
+            case "T" -> new Todo(name, isDone);
+            case "D" -> new Deadline(name, parts[3], isDone);
+            case "E" -> new Event(name, parts[3], parts[3], isDone);
+            default -> null;
+        };
     }
 
     /**
