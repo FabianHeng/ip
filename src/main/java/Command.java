@@ -1,4 +1,11 @@
-package PACKAGE_NAME;
+import java.util.ArrayList;
 
-public class Command {
+public abstract class Command {
+    protected String name;
+
+    public Command(String name) {
+        this.name = name;
+    }
+
+    public abstract void execute(ArrayList<Task> tasks, Ui ui);
 }
