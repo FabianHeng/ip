@@ -1,3 +1,5 @@
+package lili;
+
 public abstract class Task {
     protected String name;
     protected boolean isDone;

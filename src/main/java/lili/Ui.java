@@ -1,3 +1,5 @@
+package lili;
+
 public class Ui {
     private static final String LOGO = """
               .---.    .-./`)   .---.    .-./`)

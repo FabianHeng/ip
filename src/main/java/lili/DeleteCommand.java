@@ -1,3 +1,5 @@
+package lili;
+
 import java.util.ArrayList;
 
 public class DeleteCommand extends Command {

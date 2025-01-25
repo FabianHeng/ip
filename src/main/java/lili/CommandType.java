@@ -1,3 +1,5 @@
+package lili;
+
 import java.util.*;
 
 /**
@@ -67,7 +69,7 @@ public enum CommandType {
      * Creates a specific command instance based on the enum type.
      *
      * @param argument The argument string passed with the command.
-     * @return An instance of the respective Command.
+     * @return An instance of the respective lili.Command.
      */
     public abstract Command createCommand(String argument);
 
@@ -75,7 +77,7 @@ public enum CommandType {
      * Resolves a command type from a string input, considering aliases.
      *
      * @param command The user input command.
-     * @return The matching CommandType.
+     * @return The matching lili.CommandType.
      * @throws InvalidCommandException If the command is unknown.
      */
     public static CommandType fromString(String command) throws LiliException {

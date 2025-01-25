@@ -1,3 +1,5 @@
+package lili;
+
 public class LiliException extends Exception {
     public LiliException() {
         super("Something went wrong, please try again :/");

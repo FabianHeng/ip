@@ -1,3 +1,5 @@
+package lili;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,7 +14,7 @@ public class Storage {
     private final String filePath;
 
     /**
-     * Constructor for Storage.
+     * Constructor for lili.Storage.
      *
      * @param filePath The path to the storage file.
      */
