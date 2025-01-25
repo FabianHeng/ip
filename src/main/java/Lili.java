@@ -26,26 +26,14 @@ public class Lili {
         DELETE
     }
 
-    private static final String LOGO = """
-              .---.    .-./`)   .---.    .-./`)
-              | ,_|    \\ .-.')  | ,_|    \\ .-.')
-            ,-./  )    / `-' \\,-./  )    / `-' \\
-            \\  '_ '`)   `-'`"`\\  '_ '`)   `-'`"`
-             > (_)  )   .---.  > (_)  )   .---.
-            (  .  .-'   |   | (  .  .-'   |   |
-             `-'`-'|___ |   |  `-'`-'|___ |   |
-              |        \\|   |   |        \\|   |
-              `--------`'---'   `--------`'---'""";
-
     private static final ArrayList<Task> taskList = new ArrayList<>();
 
-    private static final String FILE_DIR = "src/main/data";
     private static final String FILE_PATH = "src/main/data/lili.txt";
 
     private static final Ui ui = new Ui();
     private static final Storage storage = new Storage(FILE_PATH);
 
-    public static void main(String[] args) throws LiliException {
+    public static void main(String[] args) {
         ui.displayWelcomeMessage();
         taskList.addAll(storage.loadTasks());
         startChat();
