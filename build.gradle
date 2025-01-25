@@ -32,6 +32,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = 'lili.jar'
     archiveBaseName = "lili"
     archiveClassifier = null
 }
