@@ -46,10 +46,11 @@ public class Lili {
     private static final String FILE_PATH = "src/main/data/lili.txt";
 
     private static final Ui ui = new Ui();
+    private static final Storage storage = new Storage(FILE_PATH);
 
     public static void main(String[] args) throws LiliException {
         ui.displayWelcomeMessage();
-        loadTasks();
+        taskList.addAll(storage.loadTasks());
         startChat();
     }
 
@@ -71,7 +72,7 @@ public class Lili {
             ui.printLine();
             try {
                 handleCommand(input);
-                saveTasks();
+                storage.saveTasks(taskList);
             } catch (LiliException e) {
                 System.out.println(e.getMessage());
             }
@@ -82,79 +83,10 @@ public class Lili {
     }
 
     /**
-     * Saves the tasks to a text file.
-     */
-    private static void saveTasks() {
-        try (FileWriter fw = new FileWriter(FILE_PATH)) {
-            if (!taskList.isEmpty()) {
-                for (Task task : taskList) {
-                    fw.write(task.toFileFormat() + System.lineSeparator());
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks to the file.");
-        }
-    }
-
-    /**
-     * Loads the tasks from a text file.
-     */
-    private static void loadTasks() {
-        File directory = new File(FILE_DIR);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-
-        File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            return;
-        }
-
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                Task task = parseTask(line);
-                if (task != null) {
-                    taskList.add(task);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("An error occurred while loading tasks from the file.");
-        }
-    }
-
-    /**
-     * Parses all tasks from the text file.
-     *
-     * @param line Text line from file
-     * @return The task, else null.
-     * @throws DateTimeParseException If the date format is invalid.
-     */
-    private static Task parseTask(String line) {
-        String[] parts = line.split(" \\| ");
-        String type = parts[0];
-        boolean isDone = parts[1].equals("1");
-        String name = parts[2];
-
-        try {
-            return switch (type) {
-                case "T" -> new Todo(name, isDone);
-                case "D" -> new Deadline(name, parts[3], isDone);
-                case "E" -> new Event(name, parts[3], parts[3], isDone);
-                default -> null;
-            };
-        } catch (DateTimeParseException e) {
-            System.out.println("Error loading the tasks, make sure the dates are in this format (default time is 0000): yyyy-mm-dd HHmm.");
-        }
-
-        return null;
-    }
-
-    /**
      * Handles user commands.
      *
      * @param input User input.
-     * @throws LiliException If the input is invalid or causes an error.
+     * @throws InvalidCommandException If the input is invalid or causes an error.
      */
     private static void handleCommand(String input) throws LiliException {
         String[] parts = input.split(" ", 2);
