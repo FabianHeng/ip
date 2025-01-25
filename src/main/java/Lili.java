@@ -286,7 +286,6 @@ public class Lili {
      *
      * @param description Task description and deadline, separated by " /by ".
      * @throws InvalidDeadlineFormatException If the command format is invalid.
-     * @throws DateTimeParseException If the date format is invalid.
      */
     private static void addDeadlineTask(String description) throws InvalidDeadlineFormatException {
         String[] parts = description.split(" /by ");
