@@ -45,21 +45,12 @@ public class Lili {
     private static final String FILE_DIR = "src/main/data";
     private static final String FILE_PATH = "src/main/data/lili.txt";
 
+    private static final Ui ui = new Ui();
+
     public static void main(String[] args) throws LiliException {
-        displayWelcomeMessage();
+        ui.displayWelcomeMessage();
         loadTasks();
         startChat();
-    }
-
-    /**
-     * Displays the welcome message and logo.
-     */
-    private static void displayWelcomeMessage() {
-        System.out.println("------------------------------");
-        System.out.println("Hello! I'm");
-        System.out.println(LOGO);
-        System.out.println("What can I do for you?");
-        System.out.println("------------------------------");
     }
 
     /**
@@ -72,19 +63,19 @@ public class Lili {
         while (true) {
             input = scanner.nextLine();
 
-            if (isExitCommand(input)) {
-                displayExitMessage();
+            if (ui.isExitCommand(input)) {
+                ui.displayExitMessage();
                 break;
             }
 
-            System.out.println("------------------------------");
+            ui.printLine();
             try {
                 handleCommand(input);
                 saveTasks();
             } catch (LiliException e) {
                 System.out.println(e.getMessage());
             }
-            System.out.println("------------------------------");
+            ui.printLine();
         }
 
         scanner.close();
@@ -160,25 +151,6 @@ public class Lili {
     }
 
     /**
-     * Checks if the user input is an exit command.
-     *
-     * @param input User input.
-     * @return True if the input is an exit command, false otherwise.
-     */
-    private static boolean isExitCommand(String input) {
-        return input.equalsIgnoreCase("bye") || input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("quit");
-    }
-
-    /**
-     * Displays the exit message.
-     */
-    private static void displayExitMessage() {
-        System.out.println("------------------------------");
-        System.out.println("Bye, talk to you again <3");
-        System.out.println("------------------------------");
-    }
-
-    /**
      * Handles user commands.
      *
      * @param input User input.
@@ -229,9 +201,9 @@ public class Lili {
      */
     private static void displayTaskList() {
         if (taskList.isEmpty()) {
-            System.out.println("Nothing in list");
+            ui.printChatText("LIST_EMPTY");
         } else {
-            System.out.println("Here are your list of tasks:");
+            ui.printChatText("LIST");
             for (int i = 0; i < taskList.size(); i++) {
                 System.out.println((i + 1) + ". " + taskList.get(i).toString());
             }
@@ -248,7 +220,7 @@ public class Lili {
         int taskIndex = parseTaskNumber(taskNumber);
         Task task = taskList.get(taskIndex);
         task.markAsDone();
-        System.out.println("Ok! I've marked it as done:");
+        ui.printChatText("MARK");
         System.out.println(task.toString());
     }
 
@@ -262,7 +234,7 @@ public class Lili {
         int taskIndex = parseTaskNumber(taskNumber);
         Task task = taskList.get(taskIndex);
         task.markAsNotDone();
-        System.out.println("Ok! I've marked it as not done yet:");
+        ui.printChatText("UNMARK");
         System.out.println(task.toString());
     }
 
@@ -330,7 +302,7 @@ public class Lili {
     private static void deleteTask(String taskNumber) throws InvalidTaskNumberException {
         int taskIndex = parseTaskNumber(taskNumber);
         Task task = taskList.remove(taskIndex);
-        System.out.println("Done and dusted, I've removed this from your list:");
+        ui.printChatText("DELETE");
         System.out.println(task.toString());
         System.out.println("Now you have " + taskList.size() + " task(s) in your list.");
     }
@@ -341,7 +313,7 @@ public class Lili {
      * @param task The task that was added.
      */
     private static void displayTaskAdded(Task task) {
-        System.out.println("Nice! I've added it to your list:");
+        ui.printChatText("TASK");
         System.out.println(task.toString());
         System.out.println("Now you have " + taskList.size() + " task(s) in your list.");
     }
