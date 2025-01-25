@@ -288,7 +288,7 @@ public class Lili {
      * @throws InvalidDeadlineFormatException If the command format is invalid.
      * @throws DateTimeParseException If the date format is invalid.
      */
-    private static void addDeadlineTask(String description) throws LiliException {
+    private static void addDeadlineTask(String description) throws InvalidDeadlineFormatException {
         String[] parts = description.split(" /by ");
         if (parts.length != 2) {
             throw new InvalidDeadlineFormatException();
@@ -313,9 +313,13 @@ public class Lili {
         if (parts.length != 3) {
             throw new InvalidEventFormatException();
         }
-        Event event = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
-        taskList.add(event);
-        displayTaskAdded(event);
+        try {
+            Event event = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+            taskList.add(event);
+            displayTaskAdded(event);
+        } catch (DateTimeParseException e) {
+            System.out.println("I can't understand the date(s) given, make sure it is in this format (default time is 0000): yyyy-mm-dd HHmm.");
+        }
     }
 
     /**
