@@ -42,10 +42,18 @@ public class Ui {
         return input.equalsIgnoreCase("bye") || input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("quit") || input.equalsIgnoreCase("q");
     }
 
+    /**
+     * Prints a separator line.
+     */
     public void printLine() {
         System.out.println("------------------------------");
     }
 
+    /**
+     * Prints pre-defined chat text based on the given input.
+     *
+     * @param input Chat text key.
+     */
     public void printChatText(String input) {
         switch (input) {
         case "LIST":
