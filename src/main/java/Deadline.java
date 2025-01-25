@@ -5,8 +5,8 @@ import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     protected LocalDateTime dateTime;
-    protected String by;
     protected DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+    protected String by;
 
     public Deadline(String name, String by) throws DateTimeParseException {
         super(name);
