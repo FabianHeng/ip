@@ -10,9 +10,6 @@ public class Ui {
               |        \\|   |   |        \\|   |
               `--------`'---'   `--------`'---'""";
 
-    public Ui() {
-    }
-
     /**
      * Displays the welcome message and logo.
      */
