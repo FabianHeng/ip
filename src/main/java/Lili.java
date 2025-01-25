@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -126,7 +127,7 @@ public class Lili {
                     taskList.add(task);
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("An error occurred while loading tasks from the file.");
         }
     }
@@ -136,6 +137,7 @@ public class Lili {
      *
      * @param line Text line from file
      * @return The task, else null.
+     * @throws DateTimeParseException If the date format is invalid.
      */
     private static Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
@@ -143,12 +145,18 @@ public class Lili {
         boolean isDone = parts[1].equals("1");
         String name = parts[2];
 
-        return switch (type) {
-            case "T" -> new Todo(name, isDone);
-            case "D" -> new Deadline(name, parts[3], isDone);
-            case "E" -> new Event(name, parts[3], parts[3], isDone);
-            default -> null;
-        };
+        try {
+            return switch (type) {
+                case "T" -> new Todo(name, isDone);
+                case "D" -> new Deadline(name, parts[3], isDone);
+                case "E" -> new Event(name, parts[3], parts[3], isDone);
+                default -> null;
+            };
+        } catch (DateTimeParseException e) {
+            System.out.println("Error loading the tasks, make sure the dates are in this format (default time is 0000): yyyy-mm-dd HHmm.");
+        }
+
+        return null;
     }
 
     /**
@@ -277,16 +285,20 @@ public class Lili {
      * Adds a new Deadline task.
      *
      * @param description Task description and deadline, separated by " /by ".
-     * @throws InvalidDeadlineFormatException If the format is invalid.
+     * @throws InvalidDeadlineFormatException If the command format is invalid.
      */
     private static void addDeadlineTask(String description) throws InvalidDeadlineFormatException {
         String[] parts = description.split(" /by ");
         if (parts.length != 2) {
             throw new InvalidDeadlineFormatException();
         }
-        Deadline deadline = new Deadline(parts[0].trim(), parts[1].trim());
-        taskList.add(deadline);
-        displayTaskAdded(deadline);
+        try {
+            Deadline deadline = new Deadline(parts[0].trim(), parts[1].trim());
+            taskList.add(deadline);
+            displayTaskAdded(deadline);
+        } catch (DateTimeParseException e) {
+            System.out.println("I can't understand the date given, make sure it is in this format (default time is 0000): yyyy-mm-dd HHmm.");
+        }
     }
 
     /**
@@ -300,9 +312,13 @@ public class Lili {
         if (parts.length != 3) {
             throw new InvalidEventFormatException();
         }
-        Event event = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
-        taskList.add(event);
-        displayTaskAdded(event);
+        try {
+            Event event = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+            taskList.add(event);
+            displayTaskAdded(event);
+        } catch (DateTimeParseException e) {
+            System.out.println("I can't understand the date(s) given, make sure it is in this format (default time is 0000): yyyy-mm-dd HHmm.");
+        }
     }
 
     /**
