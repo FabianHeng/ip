@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 
 public abstract class Command {
-    protected String name;
+    /**
+     * Executes the command with the given arguments.
+     *
+     * @param taskList The list of tasks.
+     * @param ui The user interface for output.
+     * @param storage The storage system for saving tasks.
+     */
 
-    public Command(String name) {
-        this.name = name;
-    }
-
-    public abstract void execute(ArrayList<Task> tasks, Ui ui);
+    public abstract void execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException;
 }
