@@ -38,12 +38,12 @@ public class Deadline extends Task {
     }
 
     private LocalDateTime parseDateTime(String by) throws DateTimeParseException {
-        if (by.contains(" ")) {
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            dateTime = LocalDateTime.parse(by, dateTimeFormatter);
-        } else {
+        if (!by.contains(" ")) {
             LocalDate date = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             dateTime = date.atStartOfDay();
+        } else {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            dateTime = LocalDateTime.parse(by, dateTimeFormatter);
         }
         return dateTime;
     }
