@@ -19,7 +19,7 @@ public class TodoCommand extends Command {
      */
     @Override
     public void execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
-        if (name.isEmpty()) {
+        if (name == null || name.trim().isEmpty()) {
             throw new InvalidTodoDescriptionException();
         }
         Todo todo = new Todo(name);
