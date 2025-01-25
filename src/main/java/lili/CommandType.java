@@ -48,6 +48,10 @@ public enum CommandType {
         public Command createCommand(String argument) {
             return new EventCommand(argument);
         }
+    },
+    FIND("find", "search", "f") {
+        @Override
+        public Command createCommand(String argument) {return new FindCommand(argument); }
     };
 
     private static final Map<String, CommandType> aliasMap = new HashMap<>();
