@@ -74,6 +74,9 @@ public class Ui {
         case "DELETE":
             System.out.println("Done and dusted, I've removed this from your list:");
             break;
+        case "FIND":
+            System.out.println("I found these task(s) that matches your search:");
+            break;
         default:
             break;
         }
