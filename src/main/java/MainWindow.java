@@ -2,9 +2,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import lili.Lili;
 
 /**
@@ -28,11 +32,55 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        if (lili != null) {
+            String welcomeMessage = lili.getWelcomeMessage();
+            dialogContainer.getChildren().add(
+                    DialogBox.getLiliDialog(welcomeMessage, liliImage)
+            );
+        }
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Lili instance */
     public void setLili(Lili l) {
         lili = l;
+
+        if (dialogContainer != null) {
+            String welcomeMessage = lili.getWelcomeMessage();
+            dialogContainer.getChildren().add(
+                    DialogBox.getLiliDialog(welcomeMessage, liliImage)
+            );
+        }
+    }
+
+    private void exitApplication() {
+        Label exitingLabel = new Label("Exiting");
+        dialogContainer.getChildren().add(DialogBox.getLiliDialog("Exiting", liliImage));
+
+        PauseTransition pauseTransition = new PauseTransition(Duration.seconds(1));
+        pauseTransition.setOnFinished(event -> {
+            exitingLabel.setText("Exiting.");
+            dialogContainer.getChildren().add(DialogBox.getLiliDialog("Exiting.", liliImage));
+
+            PauseTransition pause2 = new PauseTransition(Duration.seconds(0.2));
+            pause2.setOnFinished(event2 -> {
+                exitingLabel.setText("Exiting..");
+                dialogContainer.getChildren().add(DialogBox.getLiliDialog("Exiting..", liliImage));
+
+                PauseTransition pause3 = new PauseTransition(Duration.seconds(0.2));
+                pause3.setOnFinished(event3 -> {
+                    exitingLabel.setText("Exiting...");
+                    dialogContainer.getChildren().add(DialogBox.getLiliDialog("Exiting...", liliImage));
+
+                    PauseTransition finalPause = new PauseTransition(Duration.seconds(0.2));
+                    finalPause.setOnFinished(event4 -> Platform.exit());
+                    finalPause.play();
+                });
+                pause3.play();
+            });
+            pause2.play();
+        });
+        pauseTransition.play();
     }
 
     /**
@@ -54,5 +102,9 @@ public class MainWindow extends AnchorPane {
         );
 
         userInput.clear();
+
+        if (lili.isExitCommand(input)) {
+            exitApplication();
+        }
     }
 }
