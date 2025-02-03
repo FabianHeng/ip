@@ -1,11 +1,11 @@
 package lili;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 class TodoTest {
     @Test
@@ -28,8 +28,8 @@ class TodoTest {
         Storage storage = new Storage("data/lili.txt");
         TodoCommand todoCommand = new TodoCommand("");
         Exception exception = assertThrows(
-                lili.InvalidTodoDescriptionException.class,
-                () -> todoCommand.execute(taskList, ui, storage)
+                lili.InvalidTodoDescriptionException.class, (
+                ) -> todoCommand.execute(taskList, ui, storage)
         );
         assertEquals("Please enter a valid todo name / description :((", exception.getMessage());
     }

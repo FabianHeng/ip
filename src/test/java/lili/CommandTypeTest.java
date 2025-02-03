@@ -1,10 +1,10 @@
 package lili;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 class CommandTypeTest {
     @Test
@@ -25,8 +25,8 @@ class CommandTypeTest {
     @Test
     void testInvalidCommandThrowsException() {
         Exception exception = assertThrows(
-                lili.InvalidCommandException.class,
-                () -> CommandType.fromString("invalidCommand")
+                lili.InvalidCommandException.class, (
+                ) -> CommandType.fromString("invalidCommand")
         );
         assertEquals("Unknown command: invalidCommand", exception.getMessage());
     }
