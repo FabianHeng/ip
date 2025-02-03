@@ -71,6 +71,13 @@ public class Lili {
 
         try {
             CommandType commandType = CommandType.fromString(commandWord);
+
+            if (commandType == CommandType.FIND) {
+                String[] keywords = argument.split("\\s+");
+                Command command = new FindCommand(keywords);
+                return command.execute(taskList, ui, storage);
+            }
+
             Command command = commandType.createCommand(argument);
             return command.execute(taskList, ui, storage);
         } catch (IllegalArgumentException e) {
