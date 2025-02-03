@@ -61,6 +61,10 @@ public class Lili {
      * @throws InvalidCommandException If the input is invalid or causes an error.
      */
     private static String handleCommand(String input) throws LiliException {
+        if (ui.isExitCommand(input)) {
+            return ui.displayExitMessage();
+        }
+
         String[] parts = input.split(" ", 2);
         String commandWord = parts[0].toUpperCase();
         String argument = parts.length > 1 ? parts[1].trim() : "";
@@ -68,17 +72,43 @@ public class Lili {
         try {
             CommandType commandType = CommandType.fromString(commandWord);
             Command command = commandType.createCommand(argument);
-            return command.execute(taskList, ui, storage); // Return response instead of printing
+            return command.execute(taskList, ui, storage);
         } catch (IllegalArgumentException e) {
             throw new InvalidCommandException();
         }
     }
 
+    /**
+     * Returns welcome message and loads tasks.
+     */
+    public String getWelcomeMessage() {
+        taskList.addAll(storage.loadTasks());
+        return ui.displayWelcomeMessage();
+    }
+
+    /**
+     * Returns the response from Lili.
+     *
+     * @param input User input.
+     * @return Lili's response.
+     */
     public String getResponse(String input) {
         try {
-            return handleCommand(input);
+            String response = handleCommand(input);
+            storage.saveTasks(taskList);
+            return response;
         } catch (LiliException e) {
             return e.getMessage();
         }
+    }
+
+    /**
+     * Checks whether the user's input is an exit command.
+     *
+     * @param input User input.
+     * @return True if it is an exit command, false if otherwise.
+     */
+    public Boolean isExitCommand(String input) {
+        return ui.isExitCommand(input);
     }
 }
