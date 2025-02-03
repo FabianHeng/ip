@@ -17,7 +17,7 @@ public class Main extends Application {
     private Scene scene;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/lili.jpg"));
+    private Image liliImage = new Image(this.getClass().getResourceAsStream("/images/lili.jpg"));
 
     @Override
     public void start(Stage stage) {
@@ -80,7 +80,7 @@ public class Main extends Application {
     private void handleUserInput() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userInput.getText(), userImage),
-                DialogBox.getDukeDialog("hi", dukeImage)
+                DialogBox.getLiliDialog("hi", liliImage)
         );
         userInput.clear();
     }
