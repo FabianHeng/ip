@@ -31,8 +31,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setLili(Lili d) {
-        lili = d;
+    public void setLili(Lili l) {
+        lili = l;
     }
 
     /**
