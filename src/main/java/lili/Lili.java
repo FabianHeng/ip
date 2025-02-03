@@ -60,7 +60,7 @@ public class Lili {
      * @param input User input.
      * @throws InvalidCommandException If the input is invalid or causes an error.
      */
-    private static void handleCommand(String input) throws LiliException {
+    private static String handleCommand(String input) throws LiliException {
         String[] parts = input.split(" ", 2);
         String commandWord = parts[0].toUpperCase();
         String argument = parts.length > 1 ? parts[1].trim() : "";
@@ -68,9 +68,17 @@ public class Lili {
         try {
             CommandType commandType = CommandType.fromString(commandWord);
             Command command = commandType.createCommand(argument);
-            command.execute(taskList, ui, storage);
+            return command.execute(taskList, ui, storage); // Return response instead of printing
         } catch (IllegalArgumentException e) {
             throw new InvalidCommandException();
+        }
+    }
+
+    public String getResponse(String input) {
+        try {
+            return handleCommand(input);
+        } catch (LiliException e) {
+            return e.getMessage();
         }
     }
 }

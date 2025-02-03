@@ -22,7 +22,7 @@ public class DeadlineCommand extends Command {
      * @throws InvalidDeadlineFormatException If the command format is invalid.
      */
     @Override
-    public void execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
+    public String execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
         String[] parts = name.split(" /by ");
         if (parts.length != 2) {
             throw new InvalidDeadlineFormatException();
@@ -30,12 +30,11 @@ public class DeadlineCommand extends Command {
         try {
             Deadline deadline = new Deadline(parts[0].trim(), parts[1].trim());
             taskList.add(deadline);
-            ui.printChatText("TASK");
-            System.out.println(deadline);
-            System.out.println("Now you have " + taskList.size() + " task(s) in your list.");
+            return ui.printChatText("TASK") + "\n"
+                    + deadline.toString() + "\n"
+                    + "Now you have " + taskList.size() + " task(s) in your list.";
         } catch (DateTimeParseException e) {
-            System.out.println("I can't understand the date given, "
-                    + "make sure it is in this format (default time is 0000): yyyy-mm-dd HHmm.");
+            return "I can't understand the date given, make sure it is in this format (default time is 0000): yyyy-MM-dd HHmm.";
         }
     }
 }

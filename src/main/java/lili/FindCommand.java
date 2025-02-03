@@ -26,7 +26,7 @@ public class FindCommand extends Command {
      * @throws LiliException If no tasks match the keyword.
      */
     @Override
-    public void execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
+    public String execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
         for (Task task : taskList) {
@@ -36,16 +36,13 @@ public class FindCommand extends Command {
         }
 
         if (matchingTasks.isEmpty()) {
-            ui.printLine();
-            System.out.println("I can't find any tasks that matches this keyword: " + keyword + " :(");
-            ui.printLine();
+            return "I can't find any tasks that match this keyword: " + keyword + " :(";
         } else {
-            ui.printLine();
-            ui.printChatText("FIND");
+            StringBuilder response = new StringBuilder(ui.printChatText("FIND")).append("\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println((i + 1) + "." + matchingTasks.get(i));
+                response.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
             }
-            ui.printLine();
+            return response.toString();
         }
     }
 }

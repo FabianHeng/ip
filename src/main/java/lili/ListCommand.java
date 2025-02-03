@@ -14,14 +14,15 @@ public class ListCommand extends Command {
      * @param storage The loading and saving files object.
      */
     @Override
-    public void execute(ArrayList<Task> taskList, Ui ui, Storage storage) {
+    public String execute(ArrayList<Task> taskList, Ui ui, Storage storage) {
         if (taskList.isEmpty()) {
-            ui.printChatText("LIST_EMPTY");
+            return "LIST_EMPTY\nNo tasks available.";
         } else {
-            ui.printChatText("LIST");
+            StringBuilder response = new StringBuilder("LIST\n");
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.println((i + 1) + ". " + taskList.get(i).toString());
+                response.append((i + 1)).append(". ").append(taskList.get(i).toString()).append("\n");
             }
+            return response.toString();
         }
     }
 }

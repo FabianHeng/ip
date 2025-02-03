@@ -21,14 +21,14 @@ public class TodoCommand extends Command {
      * @throws InvalidTodoDescriptionException If the command format is invalid.
      */
     @Override
-    public void execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
+    public String execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
         if (name == null || name.trim().isEmpty()) {
             throw new InvalidTodoDescriptionException();
         }
         Todo todo = new Todo(name);
         taskList.add(todo);
-        ui.printChatText("TASK");
-        System.out.println(todo);
-        System.out.println("Now you have " + taskList.size() + " task(s) in your list.");
+        return ui.printChatText("TASK") + "\n"
+                + todo + "\n"
+                + "Now you have " + taskList.size() + " task(s) in your list.";
     }
 }

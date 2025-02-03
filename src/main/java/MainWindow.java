@@ -42,10 +42,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.isEmpty()) {
+            return;
+        }
+
+        String response = lili.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getLiliDialog("hi", liliImage)
+                DialogBox.getLiliDialog(response, liliImage)
         );
+
         userInput.clear();
     }
 }
