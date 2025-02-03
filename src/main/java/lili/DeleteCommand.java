@@ -2,6 +2,9 @@ package lili;
 
 import java.util.ArrayList;
 
+/**
+ * Command class that processes deletion of tasks.
+ */
 public class DeleteCommand extends Command {
     private final String taskNumber;
 

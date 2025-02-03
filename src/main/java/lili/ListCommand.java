@@ -2,6 +2,9 @@ package lili;
 
 import java.util.ArrayList;
 
+/**
+ * Command class that processes listing of tasks.
+ */
 public class ListCommand extends Command {
     /**
      * Displays the list of tasks.

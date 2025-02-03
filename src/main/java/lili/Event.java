@@ -1,10 +1,13 @@
 package lili;
 
-import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Event class.
+ */
 public class Event extends Task {
     protected LocalDateTime dateTimeFrom;
     protected LocalDateTime dateTimeTo;
@@ -74,6 +77,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + dateTimeFrom.format(displayFormatter) + " to: " + dateTimeTo.format(displayFormatter) + ")";
+        return "[E] " + super.toString() + " (from: " + dateTimeFrom.format(displayFormatter)
+                + " to: " + dateTimeTo.format(displayFormatter) + ")";
     }
 }

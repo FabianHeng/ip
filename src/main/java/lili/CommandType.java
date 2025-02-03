@@ -1,6 +1,7 @@
 package lili;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Enum for supported commands.
@@ -51,7 +52,8 @@ public enum CommandType {
     },
     FIND("find", "search", "f") {
         @Override
-        public Command createCommand(String argument) {return new FindCommand(argument); }
+        public Command createCommand(String argument) {
+            return new FindCommand(argument); }
     };
 
     private static final Map<String, CommandType> aliasMap = new HashMap<>();

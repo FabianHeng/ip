@@ -2,6 +2,9 @@ package lili;
 
 import java.util.ArrayList;
 
+/**
+ * Command class that processes unmarking of tasks.
+ */
 public class UnmarkCommand extends Command {
     private final String taskNumber;
 

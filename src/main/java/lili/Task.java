@@ -1,5 +1,8 @@
 package lili;
 
+/**
+ * Abstract Task class.
+ */
 public abstract class Task {
     protected String name;
     protected boolean isDone;

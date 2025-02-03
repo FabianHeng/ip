@@ -1,5 +1,8 @@
 package lili;
 
+/**
+ * Todo class.
+ */
 public class Todo extends Task {
 
     /**

@@ -1,5 +1,8 @@
 package lili;
 
+/**
+ * Ui class that processes the display messages.
+ */
 public class Ui {
     private static final String LOGO = """
               .---.    .-./`)   .---.    .-./`)
@@ -39,7 +42,10 @@ public class Ui {
      * @return True if the input is an exit command, false otherwise.
      */
     public boolean isExitCommand(String input) {
-        return input.equalsIgnoreCase("bye") || input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("quit") || input.equalsIgnoreCase("q");
+        return input.equalsIgnoreCase("bye")
+                || input.equalsIgnoreCase("exit")
+                || input.equalsIgnoreCase("quit")
+                || input.equalsIgnoreCase("q");
     }
 
     /**

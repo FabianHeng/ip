@@ -2,6 +2,9 @@ package lili;
 
 import java.util.ArrayList;
 
+/**
+ * Abstract Command class.
+ */
 public abstract class Command {
     /**
      * Executes the command with the given arguments.

@@ -3,6 +3,9 @@ package lili;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Command class that processes addition of events.
+ */
 public class EventCommand extends Command {
     private final String name;
 
@@ -31,7 +34,8 @@ public class EventCommand extends Command {
             System.out.println(event);
             System.out.println("Now you have " + taskList.size() + " task(s) in your list.");
         } catch (DateTimeParseException e) {
-            System.out.println("I can't understand the date(s) given, make sure it is in this format (default time is 0000): yyyy-mm-dd HHmm.");
+            System.out.println("I can't understand the date(s) given, "
+                    + "make sure it is in this format (default time is 0000): yyyy-mm-dd HHmm.");
         }
     }
 }

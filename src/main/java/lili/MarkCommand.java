@@ -2,6 +2,9 @@ package lili;
 
 import java.util.ArrayList;
 
+/**
+ * Command class that processes marking of tasks.
+ */
 public class MarkCommand extends Command {
     private final String taskNumber;
 

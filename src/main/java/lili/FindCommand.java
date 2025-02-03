@@ -2,6 +2,9 @@ package lili;
 
 import java.util.ArrayList;
 
+/**
+ * Command class that processes finding of tasks.
+ */
 public class FindCommand extends Command {
     private final String keyword;
 

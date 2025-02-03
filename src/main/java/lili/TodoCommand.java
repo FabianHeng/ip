@@ -2,6 +2,9 @@ package lili;
 
 import java.util.ArrayList;
 
+/**
+ * Command class that processes addition of tasks.
+ */
 public class TodoCommand extends Command {
     private final String name;
 

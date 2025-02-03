@@ -1,5 +1,8 @@
 package lili;
 
+/**
+ * Exception class that contains all Exceptions to Lili class.
+ */
 public class LiliException extends Exception {
     public LiliException() {
         super("Something went wrong, please try again :/");

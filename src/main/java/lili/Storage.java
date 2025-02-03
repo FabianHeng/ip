@@ -3,12 +3,13 @@ package lili;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.format.DateTimeParseException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage class for saving and loading tasks from file.
+ */
 public class Storage {
     private final String fileDir;
     private final String filePath;
