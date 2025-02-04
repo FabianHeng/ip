@@ -26,13 +26,13 @@ public class DeleteCommand extends Command {
      * @throws LiliException If an error occurs while parsing the task number.
      */
     @Override
-    public void execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
+    public String execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
         int taskIndex = parseTaskNumber(taskNumber, taskList.size());
         Task removedTask = taskList.remove(taskIndex);
 
-        ui.printChatText("DELETE");
-        System.out.println(removedTask.toString());
-        System.out.println("Now you have " + taskList.size() + " task(s) in your list.");
+        return ui.printChatText("DELETE") + "\n"
+                + removedTask.toString() + "\n"
+                + "Now you have " + taskList.size() + " task(s) in your list.";
     }
 
     private int parseTaskNumber(String taskNumber, int size) throws InvalidTaskNumberException {

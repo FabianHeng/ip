@@ -16,23 +16,23 @@ public class Ui {
               `--------`'---'   `--------`'---'""";
 
     /**
-     * Displays the welcome message and logo.
+     * Returns the welcome message and logo.
      */
-    public void displayWelcomeMessage() {
-        System.out.println("------------------------------");
-        System.out.println("Hello! I'm");
-        System.out.println(LOGO);
-        System.out.println("What can I do for you?");
-        System.out.println("------------------------------");
+    public String displayWelcomeMessage() {
+        return "------------------------------\n"
+                + "Hello! I'm\n"
+                + LOGO + "\n"
+                + "What can I do for you?\n"
+                + "------------------------------";
     }
 
     /**
-     * Displays the exit message.
+     * Returns the exit message.
      */
-    public void displayExitMessage() {
-        System.out.println("------------------------------");
-        System.out.println("Bye, talk to you again <3");
-        System.out.println("------------------------------");
+    public String displayExitMessage() {
+        return "------------------------------\n"
+                + "Bye, talk to you again <3\n"
+                + "------------------------------";
     }
 
     /**
@@ -49,42 +49,28 @@ public class Ui {
     }
 
     /**
-     * Prints a separator line.
+     * Returns a separator line.
      */
-    public void printLine() {
-        System.out.println("------------------------------");
+    public String printLine() {
+        return "------------------------------";
     }
 
     /**
-     * Prints pre-defined chat text based on the given input.
+     * Returns pre-defined chat text based on the given input.
      *
      * @param input Chat text key.
+     * @return Corresponding chat message.
      */
-    public void printChatText(String input) {
-        switch (input) {
-        case "LIST":
-            System.out.println("Here are your list of tasks:");
-            break;
-        case "LIST_EMPTY":
-            System.out.println("Nothing in list");
-            break;
-        case "MARK":
-            System.out.println("Ok! I've marked it as done:");
-            break;
-        case "UNMARK":
-            System.out.println("Ok! I've marked it as not done yet:");
-            break;
-        case "TASK":
-            System.out.println("Nice! I've added it to your list:");
-            break;
-        case "DELETE":
-            System.out.println("Done and dusted, I've removed this from your list:");
-            break;
-        case "FIND":
-            System.out.println("I found these task(s) that matches your search:");
-            break;
-        default:
-            break;
-        }
+    public String printChatText(String input) {
+        return switch (input) {
+            case "LIST" -> "Here are your list of tasks:";
+            case "LIST_EMPTY" -> "Nothing in list";
+            case "MARK" -> "Ok! I've marked it as done:";
+            case "UNMARK" -> "Ok! I've marked it as not done yet:";
+            case "TASK" -> "Nice! I've added it to your list:";
+            case "DELETE" -> "Done and dusted, I've removed this from your list:";
+            case "FIND" -> "I found these task(s) that match your search:";
+            default -> "";
+        };
     }
 }

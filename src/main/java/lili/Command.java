@@ -13,5 +13,5 @@ public abstract class Command {
      * @param ui The user interface for output.
      * @param storage The storage system for saving tasks.
      */
-    public abstract void execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException;
+    public abstract String execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException;
 }

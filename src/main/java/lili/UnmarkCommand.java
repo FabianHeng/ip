@@ -21,12 +21,11 @@ public class UnmarkCommand extends Command {
      * @throws InvalidTaskNumberException If the task number is invalid.
      */
     @Override
-    public void execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
+    public String execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
         int taskIndex = parseTaskNumber(taskNumber, taskList.size());
         Task task = taskList.get(taskIndex);
         task.markAsNotDone();
-        ui.printChatText("UNMARK");
-        System.out.println(task);
+        return ui.printChatText("UNMARK") + "\n" + task;
     }
 
     private int parseTaskNumber(String taskNumber, int size) throws InvalidTaskNumberException {
