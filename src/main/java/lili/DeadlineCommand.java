@@ -34,7 +34,8 @@ public class DeadlineCommand extends Command {
                     + deadline.toString() + "\n"
                     + "Now you have " + taskList.size() + " task(s) in your list.";
         } catch (DateTimeParseException e) {
-            return "I can't understand the date given, make sure it is in this format (default time is 0000): yyyy-MM-dd HHmm.";
+            return "I can't understand the date given, "
+                    + "make sure it is in this format (default time is 0000): yyyy-MM-dd HHmm.";
         }
     }
 }

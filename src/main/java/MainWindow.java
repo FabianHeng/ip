@@ -1,13 +1,13 @@
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.util.Duration;
 import lili.Lili;
 
@@ -29,6 +29,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image liliImage = new Image(this.getClass().getResourceAsStream("/images/lili.jpg"));
 
+    /**
+     * Creates the GUI window for the application.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
