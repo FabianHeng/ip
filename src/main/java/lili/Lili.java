@@ -21,12 +21,17 @@ public class Lili {
     private static final Storage storage = new Storage(FILE_PATH);
 
     public static void main(String[] args) {
-        ui.displayWelcomeMessage();
-
-        assert taskList.isEmpty();
-
-        taskList.addAll(storage.loadTasks());
+        initialize();
         startChat();
+    }
+
+    /**
+     * Initializes the chatbot by displaying a welcome message and loading tasks.
+     */
+    private static void initialize() {
+        ui.displayWelcomeMessage();
+        assert taskList.isEmpty();
+        taskList.addAll(storage.loadTasks());
     }
 
     /**
@@ -38,25 +43,43 @@ public class Lili {
 
         while (true) {
             input = scanner.nextLine();
-
             assert input != null : "User input is null";
-
-            if (ui.isExitCommand(input)) {
-                ui.displayExitMessage();
-                break;
-            }
+            if (processExitCommand(input)) break;
 
             ui.printLine();
-            try {
-                handleCommand(input);
-                storage.saveTasks(taskList);
-            } catch (LiliException e) {
-                System.out.println(e.getMessage());
-            }
+            processUserCommand(input);
             ui.printLine();
         }
 
         scanner.close();
+    }
+
+    /**
+     * Processes exit command.
+     *
+     * @param input User input.
+     * @return True if exit command is detected, otherwise false.
+     */
+    private static boolean processExitCommand(String input) {
+        if (!ui.isExitCommand(input)) {
+            return false;
+        }
+        ui.displayExitMessage();
+        return true;
+    }
+
+    /**
+     * Processes user commands and handles exceptions.
+     *
+     * @param input User input.
+     */
+    private static void processUserCommand(String input) {
+        try {
+            handleCommand(input);
+            storage.saveTasks(taskList);
+        } catch (LiliException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -76,26 +99,42 @@ public class Lili {
         String commandWord = parts[0].toUpperCase();
         String argument = parts.length > 1 ? parts[1].trim() : "";
 
+        return executeCommand(commandWord, argument);
+    }
+
+    /**
+     * Executes the parsed command.
+     *
+     * @param commandWord Command keyword.
+     * @param argument Arguments associated with the command.
+     * @return The response message.
+     * @throws LiliException If the command is invalid.
+     */
+    private static String executeCommand(String commandWord, String argument) throws LiliException {
         assert !commandWord.isEmpty() : "Command word should not be empty";
 
         try {
             CommandType commandType = CommandType.fromString(commandWord);
-
-            if (commandType == CommandType.FIND) {
-                String[] keywords = argument.split("\\s+");
-
-                // Assert that keywords array is not null
-                assert keywords.length > 0 : "Keywords array should have at least one element";
-
-                Command command = new FindCommand(keywords);
-                return command.execute(taskList, ui, storage);
-            }
-
-            Command command = commandType.createCommand(argument);
-            return command.execute(taskList, ui, storage);
+            return createAndExecuteCommand(commandType, argument);
         } catch (IllegalArgumentException e) {
             throw new InvalidCommandException();
         }
+    }
+
+    /**
+     * Creates the FindCommand Object if command is "Find", with varargs.
+     *
+     * @param commandType The type of command.
+     * @param argument The command argument.
+     * @return The response from executing the command.
+     * @throws LiliException If execution fails.
+     */
+    private static String createAndExecuteCommand(CommandType commandType, String argument) throws LiliException {
+        Command command = (commandType == CommandType.FIND)
+                ? new FindCommand(argument.split("\\s+"))
+                : commandType.createCommand(argument);
+
+        return command.execute(taskList, ui, storage);
     }
 
     /**

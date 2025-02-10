@@ -56,16 +56,49 @@ public class Event extends Task {
         this.dateTimeTo = parseDateTime(to);
     }
 
-    private LocalDateTime parseDateTime(String d) throws DateTimeParseException {
-        LocalDateTime dateTime;
-        if (d.contains(" ")) {
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            dateTime = LocalDateTime.parse(d, dateTimeFormatter);
-        } else {
-            LocalDate date = LocalDate.parse(d, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            dateTime = date.atStartOfDay();
+    /**
+     * Parses a date or date-time string into LocalDateTime.
+     *
+     * @param dateTimeString The date/time string in "yyyy-MM-dd" or "yyyy-MM-dd HHmm" format.
+     * @return Parsed LocalDateTime object.
+     * @throws DateTimeParseException If the input format is invalid.
+     */
+    private LocalDateTime parseDateTime(String dateTimeString) throws DateTimeParseException {
+        return dateTimeString.contains(" ")
+                ? parseFullDateTime(dateTimeString)
+                : parseDateOnly(dateTimeString);
+    }
+
+    /**
+     * Parses a full date-time string in "yyyy-MM-dd HHmm" format.
+     *
+     * @param dateTimeString The date-time string.
+     * @return Parsed LocalDateTime object.
+     * @throws DateTimeParseException If the input format is invalid.
+     */
+    private LocalDateTime parseFullDateTime(String dateTimeString) throws DateTimeParseException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            return LocalDateTime.parse(dateTimeString, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DateTimeParseException("Invalid date-time format. Expected 'yyyy-MM-dd HHmm'.", dateTimeString, 0);
         }
-        return dateTime;
+    }
+
+    /**
+     * Parses a date string in "yyyy-MM-dd" format and returns it as LocalDateTime (midnight).
+     *
+     * @param dateString The date string.
+     * @return LocalDateTime set to the start of the day.
+     * @throws DateTimeParseException If the input format is invalid.
+     */
+    private LocalDateTime parseDateOnly(String dateString) throws DateTimeParseException {
+        try {
+            LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            return date.atStartOfDay();
+        } catch (DateTimeParseException e) {
+            throw new DateTimeParseException("Invalid date format. Expected 'yyyy-MM-dd'.", dateString, 0);
+        }
     }
 
     /**
