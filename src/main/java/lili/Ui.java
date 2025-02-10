@@ -17,6 +17,18 @@ public class Ui {
               |        \\|   |   |        \\|   |
               `--------`'---'   `--------`'---'""";
 
+    // Map for chat responses
+    private static final Map<String, String> chatMessages = Map.of(
+            "DELETE", "Done and dusted, I've removed this from your list:",
+            "FIND", "I found these task(s) that match your search:",
+            "HELP", "Here are the list of commands available:",
+            "LIST", "Here are your list of tasks:",
+            "LIST_EMPTY", "Nothing in list",
+            "MARK", "Ok! I've marked it as done:",
+            "TASK", "Nice! I've added it to your list:",
+            "UNMARK", "Ok! I've marked it as not done yet:"
+    );
+
     /**
      * Returns the welcome message and logo.
      */
@@ -56,18 +68,6 @@ public class Ui {
     public String printLine() {
         return "------------------------------";
     }
-
-    // Map for chat responses
-    private static final Map<String, String> chatMessages = Map.of(
-            "LIST", "Here are your list of tasks:",
-            "LIST_EMPTY", "Nothing in list",
-            "MARK", "Ok! I've marked it as done:",
-            "UNMARK", "Ok! I've marked it as not done yet:",
-            "TASK", "Nice! I've added it to your list:",
-            "DELETE", "Done and dusted, I've removed this from your list:",
-            "FIND", "I found these task(s) that match your search:",
-            "HELP", "Here are the list of commands available:"
-    );
 
     /**
      * Returns pre-defined chat text based on the given input.

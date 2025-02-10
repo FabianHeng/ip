@@ -53,11 +53,15 @@ public enum CommandType {
     },
     FIND("find", "search", "f", "find <taskname>") {
         @Override
-        public Command createCommand(String argument) { return new FindCommand(argument); }
+        public Command createCommand(String argument) {
+            return new FindCommand(argument);
+        }
     },
     HELP("help", "commands", "h", "help") {
         @Override
-        public Command createCommand(String argument) { return new HelpCommand(); }
+        public Command createCommand(String argument) {
+            return new HelpCommand();
+        }
     };
 
     private static final Map<String, CommandType> aliasMap = new HashMap<>();

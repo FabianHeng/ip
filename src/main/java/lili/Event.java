@@ -81,7 +81,8 @@ public class Event extends Task {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             return LocalDateTime.parse(dateTimeString, formatter);
         } catch (DateTimeParseException e) {
-            throw new DateTimeParseException("Invalid date-time format. Expected 'yyyy-MM-dd HHmm'.", dateTimeString, 0);
+            throw new DateTimeParseException("Invalid date-time format. "
+                    + "Expected 'yyyy-MM-dd HHmm'.", dateTimeString, 0);
         }
     }
 

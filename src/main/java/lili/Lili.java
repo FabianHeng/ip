@@ -44,7 +44,9 @@ public class Lili {
         while (true) {
             input = scanner.nextLine();
             assert input != null : "User input is null";
-            if (processExitCommand(input)) break;
+            if (processExitCommand(input)) {
+                break;
+            }
 
             ui.printLine();
             processUserCommand(input);
