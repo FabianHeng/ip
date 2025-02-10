@@ -65,7 +65,8 @@ public class Ui {
             "UNMARK", "Ok! I've marked it as not done yet:",
             "TASK", "Nice! I've added it to your list:",
             "DELETE", "Done and dusted, I've removed this from your list:",
-            "FIND", "I found these task(s) that match your search:"
+            "FIND", "I found these task(s) that match your search:",
+            "HELP", "Here are the list of commands available:"
     );
 
     /**
