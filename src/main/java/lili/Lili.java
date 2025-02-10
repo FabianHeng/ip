@@ -23,7 +23,6 @@ public class Lili {
     public static void main(String[] args) {
         ui.displayWelcomeMessage();
 
-        // Assert that taskList starts empty
         assert taskList.isEmpty();
 
         taskList.addAll(storage.loadTasks());
@@ -40,7 +39,6 @@ public class Lili {
         while (true) {
             input = scanner.nextLine();
 
-            // Assert that input is never null
             assert input != null : "User input is null";
 
             if (ui.isExitCommand(input)) {
@@ -68,7 +66,6 @@ public class Lili {
      * @throws InvalidCommandException If the input is invalid or causes an error.
      */
     private static String handleCommand(String input) throws LiliException {
-        // Assert that input is not null or empty
         assert input != null && !input.trim().isEmpty() : "handleCommand should not receive null or empty input";
 
         if (ui.isExitCommand(input)) {
@@ -79,7 +76,6 @@ public class Lili {
         String commandWord = parts[0].toUpperCase();
         String argument = parts.length > 1 ? parts[1].trim() : "";
 
-        // Assert that commandWord is not empty
         assert !commandWord.isEmpty() : "Command word should not be empty";
 
         try {
@@ -104,9 +100,10 @@ public class Lili {
 
     /**
      * Returns welcome message and loads tasks.
+     *
+     * @return The welcome message.
      */
     public String getWelcomeMessage() {
-        // Assert that taskList is initially empty
         assert taskList.isEmpty() : "Task list should be empty before loading tasks";
 
         taskList.addAll(storage.loadTasks());
@@ -120,13 +117,11 @@ public class Lili {
      * @return Lili's response.
      */
     public String getResponse(String input) {
-        // Assert that input is not null or empty
         assert input != null && !input.trim().isEmpty() : "getResponse should not receive null or empty input";
 
         try {
             String response = handleCommand(input);
 
-            // Assert that response is not null
             assert response != null : "Response should not be null";
 
             storage.saveTasks(taskList);
@@ -143,7 +138,6 @@ public class Lili {
      * @return True if it is an exit command, false if otherwise.
      */
     public Boolean isExitCommand(String input) {
-        // Assert that input is not null
         assert input != null : "isExitCommand should not receive null input";
 
         return ui.isExitCommand(input);
