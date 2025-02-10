@@ -62,6 +62,8 @@ public class Ui {
      * @return Corresponding chat message.
      */
     public String printChatText(String input) {
+        assert input != null : "Input key should not be null";
+
         return switch (input) {
             case "LIST" -> "Here are your list of tasks:";
             case "LIST_EMPTY" -> "Nothing in list";

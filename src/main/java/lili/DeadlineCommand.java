@@ -23,13 +23,23 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
+        assert taskList != null : "Task list should not be null";
+        assert ui != null : "Ui object should not be null";
+        assert storage != null : "Storage object should not be null";
+
         String[] parts = name.split(" /by ");
         if (parts.length != 2) {
             throw new InvalidDeadlineFormatException();
         }
+
         try {
             Deadline deadline = new Deadline(parts[0].trim(), parts[1].trim());
+            assert deadline != null : "Deadline object should be successfully created";
+
+            int initialSize = taskList.size();
             taskList.add(deadline);
+            assert taskList.size() == initialSize + 1 : "Task list size should increase by 1";
+
             return ui.printChatText("TASK") + "\n"
                     + deadline.toString() + "\n"
                     + "Now you have " + taskList.size() + " task(s) in your list.";

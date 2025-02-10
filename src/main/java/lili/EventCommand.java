@@ -23,13 +23,25 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
+        assert taskList != null : "Task list should not be null";
+        assert ui != null : "Ui object should not be null";
+        assert storage != null : "Storage object should not be null";
+
+        assert name.contains(" /from ") && name.contains(" /to ") :
+                "Event format should contain '/from' and '/to'";
+
         String[] parts = name.split(" /from | /to ");
         if (parts.length != 3) {
             throw new InvalidEventFormatException();
         }
         try {
             Event event = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+            assert event != null : "Event object should be successfully created";
+
+            int initialSize = taskList.size();
             taskList.add(event);
+            assert taskList.size() == initialSize + 1 : "Task list size should increase by 1";
+
             return ui.printChatText("TASK") + "\n"
                     + event + "\n"
                     + "Now you have " + taskList.size() + " task(s) in your list.";

@@ -22,11 +22,21 @@ public class TodoCommand extends Command {
      */
     @Override
     public String execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
+        assert taskList != null : "Task list should not be null";
+        assert ui != null : "Ui object should not be null";
+        assert storage != null : "Storage object should not be null";
+
         if (name == null || name.trim().isEmpty()) {
             throw new InvalidTodoDescriptionException();
         }
+
         Todo todo = new Todo(name);
+        assert todo != null : "Todo object should be successfully created";
+
+        int initialSize = taskList.size();
         taskList.add(todo);
+        assert taskList.size() == initialSize + 1 : "Task list size should increase by 1";
+
         return ui.printChatText("TASK") + "\n"
                 + todo + "\n"
                 + "Now you have " + taskList.size() + " task(s) in your list.";
