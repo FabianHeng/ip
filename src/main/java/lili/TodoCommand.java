@@ -27,7 +27,7 @@ public class TodoCommand extends Command {
         }
         Todo todo = new Todo(name);
         taskList.add(todo);
-        return ui.printChatText("TASK") + "\n"
+        return ui.getChatText("TASK") + "\n"
                 + todo + "\n"
                 + "Now you have " + taskList.size() + " task(s) in your list.";
     }

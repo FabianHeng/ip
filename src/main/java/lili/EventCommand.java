@@ -30,7 +30,7 @@ public class EventCommand extends Command {
         try {
             Event event = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
             taskList.add(event);
-            return ui.printChatText("TASK") + "\n"
+            return ui.getChatText("TASK") + "\n"
                     + event + "\n"
                     + "Now you have " + taskList.size() + " task(s) in your list.";
         } catch (DateTimeParseException e) {

@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
         int taskIndex = parseTaskNumber(taskNumber, taskList.size());
         Task removedTask = taskList.remove(taskIndex);
 
-        return ui.printChatText("DELETE") + "\n"
+        return ui.getChatText("DELETE") + "\n"
                 + removedTask.toString() + "\n"
                 + "Now you have " + taskList.size() + " task(s) in your list.";
     }

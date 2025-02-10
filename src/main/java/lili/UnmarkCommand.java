@@ -25,7 +25,7 @@ public class UnmarkCommand extends Command {
         int taskIndex = parseTaskNumber(taskNumber, taskList.size());
         Task task = taskList.get(taskIndex);
         task.markAsNotDone();
-        return ui.printChatText("UNMARK") + "\n" + task;
+        return ui.getChatText("UNMARK") + "\n" + task;
     }
 
     private int parseTaskNumber(String taskNumber, int size) throws InvalidTaskNumberException {
