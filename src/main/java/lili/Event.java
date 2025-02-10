@@ -25,6 +25,10 @@ public class Event extends Task {
      */
     public Event(String name, String from, String to) throws DateTimeParseException {
         super(name);
+        assert name != null && !name.trim().isEmpty() : "Event name must not be null or empty";
+        assert from != null && !from.trim().isEmpty() : "Start time (from) must not be null or empty";
+        assert to != null && !to.trim().isEmpty() : "End time (to) must not be null or empty";
+
         this.from = from;
         this.to = to;
         this.dateTimeFrom = parseDateTime(from);
@@ -42,6 +46,10 @@ public class Event extends Task {
      */
     public Event(String name, String from, String to, boolean isDone) throws DateTimeParseException {
         super(name, isDone);
+        assert name != null && !name.trim().isEmpty() : "Event name must not be null or empty";
+        assert from != null && !from.trim().isEmpty() : "Start time (from) must not be null or empty";
+        assert to != null && !to.trim().isEmpty() : "End time (to) must not be null or empty";
+
         this.from = from;
         this.to = to;
         this.dateTimeFrom = parseDateTime(from);
