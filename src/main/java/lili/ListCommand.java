@@ -23,11 +23,11 @@ public class ListCommand extends Command {
         if (taskList.isEmpty()) {
             return "LIST_EMPTY\nNo tasks available.";
         } else {
-            StringBuilder response = new StringBuilder("LIST\n");
+            StringBuilder response = new StringBuilder(ui.getChatText("LIST"));
+            response.append("\n");
             for (int i = 0; i < taskList.size(); i++) {
                 response.append((i + 1)).append(". ").append(taskList.get(i).toString()).append("\n");
             }
-            assert response.toString().startsWith("LIST\n") : "Response should start with 'LIST'";
             return response.toString();
         }
     }

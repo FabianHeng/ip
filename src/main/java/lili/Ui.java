@@ -1,5 +1,7 @@
 package lili;
 
+import java.util.Map;
+
 /**
  * Ui class that processes the display messages.
  */
@@ -55,24 +57,25 @@ public class Ui {
         return "------------------------------";
     }
 
+    // Map for chat responses
+    private static final Map<String, String> chatMessages = Map.of(
+            "LIST", "Here are your list of tasks:",
+            "LIST_EMPTY", "Nothing in list",
+            "MARK", "Ok! I've marked it as done:",
+            "UNMARK", "Ok! I've marked it as not done yet:",
+            "TASK", "Nice! I've added it to your list:",
+            "DELETE", "Done and dusted, I've removed this from your list:",
+            "FIND", "I found these task(s) that match your search:"
+    );
+
     /**
      * Returns pre-defined chat text based on the given input.
      *
      * @param input Chat text key.
      * @return Corresponding chat message.
      */
-    public String printChatText(String input) {
+    public String getChatText(String input) {
         assert input != null : "Input key should not be null";
-
-        return switch (input) {
-            case "LIST" -> "Here are your list of tasks:";
-            case "LIST_EMPTY" -> "Nothing in list";
-            case "MARK" -> "Ok! I've marked it as done:";
-            case "UNMARK" -> "Ok! I've marked it as not done yet:";
-            case "TASK" -> "Nice! I've added it to your list:";
-            case "DELETE" -> "Done and dusted, I've removed this from your list:";
-            case "FIND" -> "I found these task(s) that match your search:";
-            default -> "";
-        };
+        return chatMessages.getOrDefault(input, "");
     }
 }

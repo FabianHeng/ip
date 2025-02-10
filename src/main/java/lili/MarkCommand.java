@@ -25,7 +25,7 @@ public class MarkCommand extends Command {
         int taskIndex = parseTaskNumber(taskNumber, taskList.size());
         Task task = taskList.get(taskIndex);
         task.markAsDone();
-        return ui.printChatText("MARK") + "\n" + task;
+        return ui.getChatText("MARK") + "\n" + task;
     }
 
     private int parseTaskNumber(String taskNumber, int size) throws InvalidTaskNumberException {

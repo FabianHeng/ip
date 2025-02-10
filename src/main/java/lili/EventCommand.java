@@ -42,7 +42,7 @@ public class EventCommand extends Command {
             taskList.add(event);
             assert taskList.size() == initialSize + 1 : "Task list size should increase by 1";
 
-            return ui.printChatText("TASK") + "\n"
+            return ui.getChatText("TASK") + "\n"
                     + event + "\n"
                     + "Now you have " + taskList.size() + " task(s) in your list.";
         } catch (DateTimeParseException e) {
