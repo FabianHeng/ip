@@ -78,9 +78,9 @@ public enum CommandType {
     }
 
     /**
-     * Returns the lists of syntax for all commands.
+     * Returns the list of syntax for all commands.
      *
-     * @return Lists of syntax for all commands.
+     * @return List of syntax for all commands.
      */
     public String getSyntax() {
         return syntax;
