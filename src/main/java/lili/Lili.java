@@ -71,7 +71,7 @@ public class Lili {
     }
 
     /**
-     * Processes user commands and handles exceptions.
+     * Processes user commands and saves tasks to a text file.
      *
      * @param input User input.
      */
