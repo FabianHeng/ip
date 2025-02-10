@@ -53,7 +53,7 @@ public class Storage {
 
         File file = new File(filePath);
         if (!file.exists()) {
-            return taskList; // Return an empty list if no file exists
+            return taskList;
         }
 
         try (Scanner scanner = new Scanner(file)) {
