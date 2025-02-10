@@ -28,7 +28,6 @@ public class ListCommand extends Command {
             for (int i = 0; i < taskList.size(); i++) {
                 response.append((i + 1)).append(". ").append(taskList.get(i).toString()).append("\n");
             }
-            assert response.toString().startsWith("LIST\n") : "Response should start with 'LIST'";
             return response.toString();
         }
     }
