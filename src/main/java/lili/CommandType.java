@@ -1,5 +1,6 @@
 package lili;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,59 +9,60 @@ import java.util.Map;
  */
 
 public enum CommandType {
-    LIST("list", "ls", "tasks") {
+    LIST("list", "ls", "tasks", "list") {
         @Override
         public Command createCommand(String argument) {
             return new ListCommand();
         }
     },
-    TODO("todo", "add") {
+    TODO("todo", "add", "t", "todo <taskname>") {
         @Override
         public Command createCommand(String argument) {
             return new TodoCommand(argument);
         }
     },
-    DELETE("delete", "del", "remove") {
-        @Override
-        public Command createCommand(String argument) {
-            return new DeleteCommand(argument);
-        }
-    },
-    MARK("mark", "done", "finish", "complete", "check") {
-        @Override
-        public Command createCommand(String argument) {
-            return new MarkCommand(argument);
-        }
-    },
-    UNMARK("unmark", "uncheck", "undo") {
-        @Override
-        public Command createCommand(String argument) {
-            return new UnmarkCommand(argument);
-        }
-    },
-    DEADLINE("deadline") {
+    DEADLINE("deadline", "dl", "deadline <taskname> /by <yyyy-MM-dd HHmm>") {
         @Override
         public Command createCommand(String argument) {
             return new DeadlineCommand(argument);
         }
     },
-    EVENT("event") {
+    EVENT("event", "e", "event <taskname> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>") {
         @Override
         public Command createCommand(String argument) {
             return new EventCommand(argument);
         }
     },
-    FIND("find", "search", "f") {
+    DELETE("delete", "del", "remove", "delete <tasknum>") {
+        @Override
+        public Command createCommand(String argument) {
+            return new DeleteCommand(argument);
+        }
+    },
+    MARK("mark", "done", "finish", "complete", "check", "mark <tasknum>") {
+        @Override
+        public Command createCommand(String argument) {
+            return new MarkCommand(argument);
+        }
+    },
+    UNMARK("unmark", "uncheck", "undo", "unmark <tasknum>") {
+        @Override
+        public Command createCommand(String argument) {
+            return new UnmarkCommand(argument);
+        }
+    },
+    FIND("find", "search", "f", "find <taskname>") {
         @Override
         public Command createCommand(String argument) { return new FindCommand(argument); }
     },
-    HELP("help", "commands", "h", "?") {
+    HELP("help", "commands", "h", "help") {
         @Override
         public Command createCommand(String argument) { return new HelpCommand(); }
     };
 
     private static final Map<String, CommandType> aliasMap = new HashMap<>();
     private final String[] aliases;
+    private final String syntax;
 
     static {
         for (CommandType type : CommandType.values()) {
@@ -71,7 +73,17 @@ public enum CommandType {
     }
 
     CommandType(String... aliases) {
-        this.aliases = aliases;
+        this.aliases = Arrays.copyOf(aliases, aliases.length - 1);
+        this.syntax = aliases[aliases.length - 1]; // Last element is the syntax
+    }
+
+    /**
+     * Returns the lists of syntax for all commands.
+     *
+     * @return Lists of syntax for all commands.
+     */
+    public String getSyntax() {
+        return syntax;
     }
 
     /**
