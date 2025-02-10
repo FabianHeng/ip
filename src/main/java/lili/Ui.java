@@ -63,7 +63,7 @@ public class Ui {
     }
 
     /**
-     * Returns a separator line.
+     * Returns a separator line for UI.
      */
     public String printLine() {
         return "------------------------------";
