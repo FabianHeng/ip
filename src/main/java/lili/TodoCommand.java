@@ -37,7 +37,7 @@ public class TodoCommand extends Command {
         taskList.add(todo);
         assert taskList.size() == initialSize + 1 : "Task list size should increase by 1";
 
-        return ui.printChatText("TASK") + "\n"
+        return ui.getChatText("TASK") + "\n"
                 + todo + "\n"
                 + "Now you have " + taskList.size() + " task(s) in your list.";
     }
