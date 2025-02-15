@@ -1,0 +1,13 @@
+list
+todo Read Book
+todo Wash Dishes
+deadline Finish Website Project /by 28 Mar
+event Concert /from 26 Jan /to 27 Jan
+mark 2
+todo Watch Drama
+mark 3
+delete 2
+mark 3
+unmark 2
+list
+bye
