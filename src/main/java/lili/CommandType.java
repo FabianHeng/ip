@@ -33,7 +33,7 @@ public enum CommandType {
             return new EventCommand(argument);
         }
     },
-    DELETE("delete", "del", "remove", "delete <tasknum>") {
+    DELETE("delete", "del", "remove", "d", "delete <tasknum>") {
         @Override
         public Command createCommand(String argument) {
             return new DeleteCommand(argument);
@@ -108,7 +108,7 @@ public enum CommandType {
     public static CommandType fromString(String command) throws LiliException {
         CommandType type = aliasMap.get(command.toLowerCase());
         if (type == null) {
-            throw new InvalidCommandException("Unknown command: " + command);
+            throw new InvalidCommandException();
         }
         return type;
     }

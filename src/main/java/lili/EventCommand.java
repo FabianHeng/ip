@@ -23,12 +23,6 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(ArrayList<Task> taskList, Ui ui, Storage storage) throws LiliException {
-        assert taskList != null : "Task list should not be null";
-        assert ui != null : "Ui object should not be null";
-        assert storage != null : "Storage object should not be null";
-
-        assert name.contains(" /from ") && name.contains(" /to ")
-                : "Event format should contain '/from' and '/to'";
 
         String[] parts = name.split(" /from | /to ");
         if (parts.length != 3) {
