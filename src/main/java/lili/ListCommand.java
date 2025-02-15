@@ -21,7 +21,7 @@ public class ListCommand extends Command {
         assert storage != null : "Storage object should not be null";
 
         if (taskList.isEmpty()) {
-            return "LIST_EMPTY\nNo tasks available.";
+            return "No tasks available! Perhaps you can add some tasks?";
         } else {
             StringBuilder response = new StringBuilder(ui.getChatText("LIST"));
             response.append("\n");
