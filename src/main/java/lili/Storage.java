@@ -29,13 +29,13 @@ public class Storage {
      *
      * @param taskList The list of tasks to save.
      */
-    public void saveTasks(ArrayList<Task> taskList) {
+    public void saveTasks(ArrayList<Task> taskList) throws LiliException {
         try (FileWriter fw = new FileWriter(filePath)) {
             for (Task task : taskList) {
                 fw.write(task.toFileFormat() + System.lineSeparator());
             }
         } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks to the file.");
+            throw new StorageException();
         }
     }
 
@@ -44,7 +44,7 @@ public class Storage {
      *
      * @return The list of tasks loaded from the file.
      */
-    public ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks() throws LiliException {
         ArrayList<Task> taskList = new ArrayList<>();
         File directory = new File(fileDir);
         if (!directory.exists()) {
@@ -64,10 +64,9 @@ public class Storage {
                     taskList.add(task);
                 }
             }
-        } catch (Exception e) {
-            System.out.println("An error occurred while loading tasks from the file.");
+        } catch (IOException e) {
+            throw new StorageException();
         }
-
         return taskList;
     }
 
@@ -77,7 +76,7 @@ public class Storage {
      * @param line A line of text representing a task.
      * @return The parsed task, or null if parsing fails.
      */
-    private Task parseTask(String line) {
+    private Task parseTask(String line) throws LiliException {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
@@ -91,8 +90,7 @@ public class Storage {
                 default -> null;
             };
         } catch (DateTimeParseException e) {
-            System.out.println("Error loading tasks. Ensure dates are in the format yyyy-MM-dd HHmm.");
-            return null;
+            throw new TaskParseException();
         }
     }
 }

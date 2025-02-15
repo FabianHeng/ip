@@ -20,7 +20,7 @@ public class Lili {
     private static final Ui ui = new Ui();
     private static final Storage storage = new Storage(FILE_PATH);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws LiliException {
         initialize();
         startChat();
     }
@@ -28,7 +28,7 @@ public class Lili {
     /**
      * Initializes the chatbot by displaying a welcome message and loading tasks.
      */
-    private static void initialize() {
+    private static void initialize() throws LiliException {
         ui.displayWelcomeMessage();
         assert taskList.isEmpty();
         taskList.addAll(storage.loadTasks());
@@ -144,7 +144,7 @@ public class Lili {
      *
      * @return The welcome message.
      */
-    public String getWelcomeMessage() {
+    public String getWelcomeMessage() throws LiliException {
         assert taskList.isEmpty() : "Task list should be empty before loading tasks";
 
         taskList.addAll(storage.loadTasks());

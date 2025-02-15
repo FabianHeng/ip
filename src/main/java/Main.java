@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lili.Lili;
+import lili.LiliException;
 
 /**
  * Main class for GUI.
@@ -20,7 +21,7 @@ public class Main extends Application {
      * @param stage The stage object.
      */
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws Exception {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
@@ -31,7 +32,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setLili(lili);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new LiliException();
         }
     }
 }

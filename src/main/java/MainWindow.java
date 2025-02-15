@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import lili.Lili;
+import lili.LiliException;
 
 /**
  * Controller for the main GUI.
@@ -33,7 +34,7 @@ public class MainWindow extends AnchorPane {
      * Creates the GUI window for the application.
      */
     @FXML
-    public void initialize() {
+    public void initialize() throws LiliException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         if (lili != null) {
@@ -45,7 +46,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Lili instance */
-    public void setLili(Lili l) {
+    public void setLili(Lili l) throws LiliException {
         lili = l;
 
         if (dialogContainer != null) {

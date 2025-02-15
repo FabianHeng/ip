@@ -13,6 +13,24 @@ public class LiliException extends Exception {
     }
 }
 
+class StorageException extends LiliException {
+    public StorageException() { super("Oops! An error occurred while accessing storage."); }
+
+    public StorageException(String message) {
+        super(message);
+    }
+}
+
+class TaskParseException extends LiliException {
+    public TaskParseException() {
+        super("Oops! The task file could be corrupted, I couldn't understand the contents");
+    }
+
+    public TaskParseException(String message) {
+        super(message);
+    }
+}
+
 class InvalidTaskNumberException extends LiliException {
     public InvalidTaskNumberException() {
         super("I can't find any such task, please try again >.<");
