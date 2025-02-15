@@ -14,7 +14,9 @@ public class LiliException extends Exception {
 }
 
 class StorageException extends LiliException {
-    public StorageException() { super("Oops! An error occurred while accessing storage."); }
+    public StorageException() {
+        super("Oops! An error occurred while accessing storage.");
+    }
 
     public StorageException(String message) {
         super(message);
