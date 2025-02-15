@@ -1,6 +1,9 @@
 # 🌸 Lili - Your Personal Task Tracker 🌸
 
-![Ui.png](Ui.png)
+<p align="center">
+  <img src="Ui.png" alt="UI" width="200"/>
+</p>
+
 Lili is a clean, simple, and garden-themed chatbot designed to help you keep track of your to-dos,
 deadlines, and events. Inspired by the lily plant, Lili is here to keep your tasks organized
 and blooming with productivity! 🌿🌸
