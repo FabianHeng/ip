@@ -28,6 +28,6 @@ class CommandTypeTest {
                 lili.InvalidCommandException.class, (
                 ) -> CommandType.fromString("invalidCommand")
         );
-        assertEquals("Unknown command: invalidCommand", exception.getMessage());
+        assertEquals("I don't understand your command, type \"help\" to see the list of commands >.<", exception.getMessage());
     }
 }
