@@ -6,17 +6,6 @@ import java.util.Map;
  * Ui class that processes the display messages.
  */
 public class Ui {
-    private static final String LOGO = """
-              .---.    .-./`)   .---.    .-./`)
-              | ,_|    \\ .-.')  | ,_|    \\ .-.')
-            ,-./  )    / `-' \\,-./  )    / `-' \\
-            \\  '_ '`)   `-'`"`\\  '_ '`)   `-'`"`
-             > (_)  )   .---.  > (_)  )   .---.
-            (  .  .-'   |   | (  .  .-'   |   |
-             `-'`-'|___ |   |  `-'`-'|___ |   |
-              |        \\|   |   |        \\|   |
-              `--------`'---'   `--------`'---'""";
-
     // Map for chat responses
     private static final Map<String, String> chatMessages = Map.of(
         "DELETE", "Done and dusted, I've removed this from your list:",
@@ -34,8 +23,7 @@ public class Ui {
      */
     public String displayWelcomeMessage() {
         return "------------------------------\n"
-                + "Hello! I'm\n"
-                + LOGO + "\n"
+                + "Hello! I'm Lili\n"
                 + "What can I do for you?\n"
                 + "------------------------------";
     }
