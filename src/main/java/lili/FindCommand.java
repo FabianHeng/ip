@@ -39,8 +39,7 @@ public class FindCommand extends Command {
         }
 
         if (matchingTasks.isEmpty()) {
-            return "I can't find any tasks that match the keywords: "
-                    + String.join(", ", keywords) + " :(";
+            throw new FindException(keywords);
         } else {
             StringBuilder response = new StringBuilder(ui.getChatText("FIND")).append("\n");
             for (int i = 0; i < matchingTasks.size(); i++) {

@@ -71,6 +71,16 @@ class InvalidEventFormatException extends LiliException {
     }
 }
 
+class FindException extends LiliException {
+    public FindException(String... keywords) {
+        super("I can't find any tasks that match the keywords: " + String.join(", ", keywords) + " :(");
+    }
+
+    public FindException(String message) {
+        super(message);
+    }
+}
+
 class InvalidCommandException extends LiliException {
     public InvalidCommandException() {
         super("I don't understand your command, type \"help\" to see the list of commands >.<");
