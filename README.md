@@ -31,7 +31,7 @@ Juggling multiple deadlines and responsibilities can be overwhelming. Manual tra
 To set up LiliBot on your system:
 1. Ensure you have Java 17 installed
 2. Clone or download the latest release from [GitHub](https://github.com/FabianHeng/ip/releases)
-3. Run `java -jar lilibot.jar`
+3. Run `java -jar lili.jar`
 
 ## Setting up in Intellij
 
